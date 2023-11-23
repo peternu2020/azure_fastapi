@@ -50,6 +50,7 @@ def _input_preprocess(input):
     input = pd.concat([imputed_std_df, input[dummy_cols].reset_index(drop=True)], axis=1, sort=False)
 
 
+    input['x31'] = input['x31'].astype(str)
     input['x31_asia'] = 0
     input.loc[lambda df: df['x31'].str.strip().str.lower() == 'asia', 'x31_asia'] = 1
 
@@ -61,6 +62,8 @@ def _input_preprocess(input):
 
     ##
 
+    input['x5'] = input['x5'].astype(str)
+    
     input['x5_monday'] = 0
     input.loc[lambda df: df['x5'].str.strip().str.lower() == 'monday', 'x5_monday'] = 1
 
@@ -74,6 +77,8 @@ def _input_preprocess(input):
     input.loc[lambda df: df['x5'].str.strip().str.lower() == 'sunday', 'x5_sunday'] = 1
 
     ##
+    
+    input['x81'] = input['x81'].astype(str)
 
     input['x81_January'] = 0
     input.loc[lambda df: df['x81'].str.strip().str.lower() == 'january', 'x81_January'] = 1
@@ -177,16 +182,16 @@ app.add_middleware(
 # pydantic models
 
 class ModelInput(BaseModel):
-    x5: str 
-    x12: str | float
-    x31: str 
-    x44: str | float
-    x53: str | float
-    x56: str | float
-    x58: str | float
-    x62: str | float
-    x81: str 
-    x91: str | float #
+    x5: str | None 
+    x12: str | float | None
+    x31: str | None
+    x44: str | float | None
+    x53: str | float | None
+    x56: str | float | None
+    x58: str | float | None
+    x62: str | float | None
+    x81: str | None 
+    x91: str | float | None
 
 
 
