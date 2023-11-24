@@ -21,6 +21,10 @@ def test_valid_post_response():
     )
     
     assert response.status_code == 200
+    assert list(response.json()[0].keys()) == sorted(['business_outcome', 'phat', 'x5_saturday', 'x81_July', 'x81_December', 'x31_japan', \
+    'x81_October', 'x5_sunday', 'x31_asia', 'x81_February', 'x91', 'x81_May', 'x5_monday', 'x81_September', 'x81_March', \
+    'x53', 'x81_November', 'x44', 'x81_June', 'x12', 'x5_tuesday', 'x81_August', 'x81_January', 'x62', 'x31_germany', \
+    'x58', 'x56'])
     assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
     assert response.json()[0]['business_outcome'] == 0
     assert round(response.json()[0]['phat'],2) == 0.09
@@ -46,6 +50,10 @@ def test_valid_post_response2():
               }
     )
     assert response.status_code == 200
+    assert list(response.json()[0].keys()) == sorted(['business_outcome', 'phat', 'x5_saturday', 'x81_July', 'x81_December', 'x31_japan', \
+    'x81_October', 'x5_sunday', 'x31_asia', 'x81_February', 'x91', 'x81_May', 'x5_monday', 'x81_September', 'x81_March', \
+    'x53', 'x81_November', 'x44', 'x81_June', 'x12', 'x5_tuesday', 'x81_August', 'x81_January', 'x62', 'x31_germany', \
+    'x58', 'x56'])
     assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
     assert response.json()[0]['business_outcome'] == 0
     assert round(response.json()[0]['phat'],2) == 0.09
@@ -69,6 +77,10 @@ def test_valid_post_response3():
               }
     )
     assert response.status_code == 200
+    assert list(response.json()[0].keys()) == sorted(['business_outcome', 'phat', 'x5_saturday', 'x81_July', 'x81_December', 'x31_japan', \
+    'x81_October', 'x5_sunday', 'x31_asia', 'x81_February', 'x91', 'x81_May', 'x5_monday', 'x81_September', 'x81_March', \
+    'x53', 'x81_November', 'x44', 'x81_June', 'x12', 'x5_tuesday', 'x81_August', 'x81_January', 'x62', 'x31_germany', \
+    'x58', 'x56'])
     assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
     assert response.json()[0]['business_outcome'] in [0, 1] 
     assert response.json()[0]['x31_germany'] == 1
@@ -92,6 +104,10 @@ def test_valid_post_response4():
               }
     )
     assert response.status_code == 200
+    assert list(response.json()[0].keys()) == sorted(['business_outcome', 'phat', 'x5_saturday', 'x81_July', 'x81_December', 'x31_japan', \
+    'x81_October', 'x5_sunday', 'x31_asia', 'x81_February', 'x91', 'x81_May', 'x5_monday', 'x81_September', 'x81_March', \
+    'x53', 'x81_November', 'x44', 'x81_June', 'x12', 'x5_tuesday', 'x81_August', 'x81_January', 'x62', 'x31_germany', \
+    'x58', 'x56'])
     assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
     assert response.json()[0]['business_outcome'] in [0, 1] 
     assert response.json()[0]['x31_germany'] == 1
@@ -116,6 +132,10 @@ def test_default_valid_post_response():
               }
     )
     assert response.status_code == 200
+    assert list(response.json()[0].keys()) == sorted(['business_outcome', 'phat', 'x5_saturday', 'x81_July', 'x81_December', 'x31_japan', \
+    'x81_October', 'x5_sunday', 'x31_asia', 'x81_February', 'x91', 'x81_May', 'x5_monday', 'x81_September', 'x81_March', \
+    'x53', 'x81_November', 'x44', 'x81_June', 'x12', 'x5_tuesday', 'x81_August', 'x81_January', 'x62', 'x31_germany', \
+    'x58', 'x56'])
     assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
     assert response.json()[0]['business_outcome'] in [0, 1]
     assert response.json()[0]['phat'] == 0.5
@@ -210,5 +230,9 @@ def test_batch_input_valid_post_response():
   assert response.status_code == 200
   for i in response.json():
     assert i['business_outcome'] in [0, 1] 
-    assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
+    assert list(i.keys()) == sorted(['business_outcome', 'phat', 'x5_saturday', 'x81_July', 'x81_December', 'x31_japan', \
+    'x81_October', 'x5_sunday', 'x31_asia', 'x81_February', 'x91', 'x81_May', 'x5_monday', 'x81_September', 'x81_March', \
+    'x53', 'x81_November', 'x44', 'x81_June', 'x12', 'x5_tuesday', 'x81_August', 'x81_January', 'x62', 'x31_germany', \
+    'x58', 'x56'])
+    assert len(i) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
   assert len(response.json()) == 4 #4 JSON records w/predictions expected in response for batch input of 4 records
