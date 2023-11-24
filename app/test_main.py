@@ -70,7 +70,7 @@ def test_valid_post_response3():
     )
     assert response.status_code == 200
     assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
-    assert i['business_outcome'] in [0, 1] 
+    assert response.json()[0]['business_outcome'] in [0, 1] 
     assert response.json()[0]['x31_germany'] == 1
     assert response.json()[0]['x5_tuesday'] == 1
       
@@ -93,9 +93,32 @@ def test_valid_post_response4():
     )
     assert response.status_code == 200
     assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
-    assert i['business_outcome'] in [0, 1] 
+    assert response.json()[0]['business_outcome'] in [0, 1] 
     assert response.json()[0]['x31_germany'] == 1
     assert response.json()[0]['x5_tuesday'] == 1
+    
+def test_default_valid_post_response():
+  #test input with empty JSON payload
+  #model will use mean imputation and default values for dummy features
+
+    response = test_client.post(
+        "/predict",
+        json={"x12": "",
+              "x44":"",
+              "x53":"",
+              "x56":"",
+              "x58":"",
+              "x62": "",
+              "x91":"",
+              "x5":"",
+              "x31":"",
+              "x81":""
+              }
+    )
+    assert response.status_code == 200
+    assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
+    assert response.json()[0]['business_outcome'] in [0, 1]
+    assert response.json()[0]['phat'] == 0.5
       
 
 def test_invalid_post_response():
@@ -118,28 +141,22 @@ def test_invalid_post_response():
     )
     assert response.status_code != 200
     
-def test_empty_json_valid_post_response():
+def test_empty_json_invalid_post_response():
   #test input with empty JSON payload
-  #model will use mean imputation and default values for dummy features
     response = test_client.post(
         "/predict",
-        json=""
+        json={}
     )
-    assert response.status_code == 200
-    assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
-    assert response.json()[0]['phat'] == 0.5
+    assert response.status_code != 200
     
-def test_empty_json_valid_post_response2():
+def test_empty_json_invalid_post_response2():
   #test input with empty JSON payload
-  #model will use mean imputation and default values for dummy features
     response = test_client.post(
         "/predict",
         json={"x1": "1"
         }
     )
-    assert response.status_code == 200
-    assert len(response.json()[0]) == 27 #27 fields expected in response; business_outcome, phat, and 25 of the model features
-    assert response.json()[0]['phat'] == 0.5
+    assert response.status_code != 200
     
     
 def test_batch_input_valid_post_response():
