@@ -167,6 +167,7 @@ def test_empty_json_valid_post_response():
     )
     assert response.status_code == 200
     assert response.json()[0]['phat'] == 0.5
+    assert 1 == 2
     
     
 def test_batch_input_valid_post_response():
